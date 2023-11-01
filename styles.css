@@ -10,13 +10,13 @@ h1 {
   display: grid;
   grid-template-columns: repeat(16, auto);
   margin: auto;
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   border: 1px solid black;
 }
 
 .grid-item {
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid black;
+  border: 1px solid rgb(133, 133, 133);
   aspect-ratio: 1;
 }

@@ -14,17 +14,30 @@ function createGrid(size) {
   for (let i = 0; i < size; i++) {
     const gridDiv = document.createElement("div");
     gridDiv.classList.add("grid-item");
-    gridDiv.textContent = i + 1;
     gridContainer.appendChild(gridDiv);
-    gridDiv.addEventListener("mouseover", (e) => {
-      e.target.style.backgroundColor = "black";
-    });
+    gridDiv.addEventListener("mouseover", makeGridItemBlack);
   }
 }
 
+function makeGridItemBlack(event) {
+  event.target.style.backgroundColor = "black";
+}
+
 function customSize() {
-  let userSizeInput = prompt("Enter the number of squares per side: ");
-  let convertedUserSize = userSizeInput ** 2;
+  let userSizeInput = prompt(
+    "Enter the number of squares per side: (Maximum 100)"
+  );
+  let parsedUserSizeInput = parseInt(userSizeInput);
+  if (isNaN(parsedUserSizeInput)) {
+    alert(`${userSizeInput} is not a valid number!`);
+    return;
+  } else if (parsedUserSizeInput > 100) {
+    alert(
+      `${parsedUserSizeInput} is too big. Size set to default maximum of 100.`
+    );
+    parsedUserSizeInput = 100;
+  }
+  let convertedUserSize = parsedUserSizeInput ** 2;
   // Empty grid container by removing all child nodes.
   let child = gridContainer.lastElementChild;
   while (child) {
@@ -33,7 +46,14 @@ function customSize() {
   }
   gridContainerRule.style.setProperty(
     "grid-template-columns",
-    `repeat(${userSizeInput}, auto)`
+    `repeat(${parsedUserSizeInput}, auto)`
   );
   createGrid(convertedUserSize);
+}
+
+function removeMouseOverEvent() {
+  const nodeList = gridContainer.childNodes;
+  for (let i = 0; i < nodeList.length; i++) {
+    nodeList[i].removeEventListener("mouseover", makeGridItemBlack);
+  }
 }
