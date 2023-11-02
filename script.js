@@ -10,17 +10,14 @@ const gridContainerRule = [...stylesheet.cssRules].find(
 // Initialize starting 16 x 16 grid.
 createGrid(gridSize);
 
+// Grid size functions
 function createGrid(size) {
   for (let i = 0; i < size; i++) {
     const gridDiv = document.createElement("div");
     gridDiv.classList.add("grid-item");
     gridContainer.appendChild(gridDiv);
-    gridDiv.addEventListener("mouseover", makeGridItemBlack);
+    gridDiv.addEventListener("mouseover", makeGridItemBgColorBlack);
   }
-}
-
-function makeGridItemBlack(event) {
-  event.target.style.backgroundColor = "black";
 }
 
 function customSize() {
@@ -51,9 +48,34 @@ function customSize() {
   createGrid(convertedUserSize);
 }
 
+// Grid style functions
+function makeGridItemBgColorBlack(event) {
+  event.target.style.backgroundColor = "black";
+}
+
+function makeGridItemBgColorRandom(event) {
+  removeMouseOverEvent();
+  addMouseOverEvent();
+  event.target.style.backgroundColor = `rgb(${randomIntegerGenerator(
+    256
+  )},${randomIntegerGenerator(256)},${randomIntegerGenerator(256)})`;
+}
+
 function removeMouseOverEvent() {
   const nodeList = gridContainer.childNodes;
   for (let i = 0; i < nodeList.length; i++) {
-    nodeList[i].removeEventListener("mouseover", makeGridItemBlack);
+    nodeList[i].removeEventListener("mouseover", makeGridItemBgColorBlack);
   }
+}
+
+function addMouseOverEvent() {
+  const nodeList = gridContainer.childNodes;
+  for (let i = 0; i < nodeList.length; i++) {
+    nodeList[i].addEventListener("mouseover", makeGridItemBgColorRandom);
+  }
+}
+
+// Helper functions
+function randomIntegerGenerator(rangeValue) {
+  return Math.floor(Math.random() * rangeValue);
 }
