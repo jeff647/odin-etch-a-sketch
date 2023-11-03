@@ -49,29 +49,38 @@ function customSize() {
 }
 
 // Grid style functions
-function makeGridItemBgColorBlack(event) {
-  event.target.style.backgroundColor = "black";
+function makeGridItemBgColorBlack(e) {
+  removeMouseOverEvent(makeGridItemBgColorRandom);
+  addMouseOverEvent(makeGridItemBgColorBlack);
+  e.target.style.backgroundColor = "black";
 }
 
-function makeGridItemBgColorRandom(event) {
-  removeMouseOverEvent();
-  addMouseOverEvent();
-  event.target.style.backgroundColor = `rgb(${randomIntegerGenerator(
+function makeGridItemBgColorRandom(e) {
+  removeMouseOverEvent(makeGridItemBgColorBlack);
+  addMouseOverEvent(makeGridItemBgColorRandom);
+  e.target.style.backgroundColor = `rgb(${randomIntegerGenerator(
     256
   )},${randomIntegerGenerator(256)},${randomIntegerGenerator(256)})`;
 }
 
-function removeMouseOverEvent() {
+function makeGridItemBgColorDarken(e){
+  removeMouseOverEvent(makeGridItemBgColorBlack);
+  removeMouseOverEvent(makeGridItemBgColorRandom);
+  addMouseOverEvent(makeGridItemBgColorDarken);
+  e.target.style.filter = "brightness(0%)";
+}
+
+function removeMouseOverEvent(currentEvent) {
   const nodeList = gridContainer.childNodes;
   for (let i = 0; i < nodeList.length; i++) {
-    nodeList[i].removeEventListener("mouseover", makeGridItemBgColorBlack);
+    nodeList[i].removeEventListener("mouseover", currentEvent);
   }
 }
 
-function addMouseOverEvent() {
+function addMouseOverEvent(currentEvent) {
   const nodeList = gridContainer.childNodes;
   for (let i = 0; i < nodeList.length; i++) {
-    nodeList[i].addEventListener("mouseover", makeGridItemBgColorRandom);
+    nodeList[i].addEventListener("mouseover", currentEvent);
   }
 }
 
