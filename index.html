@@ -10,9 +10,10 @@
     <h1>Etch-A-Sketch</h1>
 
     <button onclick="customSize()">Custom Size</button>
-    <button onclick="makeGridItemBgColorBlack()">Black</button>
-    <button onclick="makeGridItemBgColorRandom()">Randomize</button>
-    <button onclick="makeGridItemBgColorDarken()">Darken</button>
+    <button onclick="addMouseOverEvent(makeGridItemBgBlack)">Black</button>
+    <button onclick="addMouseOverEvent(makeGridItemBgRandom)">Randomize</button>
+    <button onclick="addMouseOverEvent(makeGridItemBgDarken)">Darken</button>
+    <button onclick="addMouseOverEvent(makeGridItemBgLighten)">Lighten</button>
     <div class="grid-container"></div>
   </body>
 </html>
