@@ -1,5 +1,6 @@
 const gridContainer = document.querySelector(".grid-container");
 const gridSize = 16 * 16;
+let userSize = gridSize;
 
 // API to select and change css properties.
 const stylesheet = document.styleSheets[0];
@@ -12,6 +13,8 @@ createGrid(gridSize);
 
 // Create a grid based on size and event parameter
 function createGrid(size, event = makeGridItemBgBlack) {
+  emptyGridContainer();
+  resizeGridTemplateColumns(Math.sqrt(size));
   for (let i = 0; i < size; i++) {
     const gridDiv = document.createElement("div");
     gridDiv.classList.add("grid-item");
@@ -37,18 +40,27 @@ function customSize() {
     parsedUserSizeInput = 100;
   }
   let convertedUserSize = parsedUserSizeInput ** 2;
-  // Empty grid container by removing all child nodes.
+  emptyGridContainer();
+  resizeGridTemplateColumns(parsedUserSizeInput);
+  createGrid(convertedUserSize);
+  userSize = convertedUserSize;
+}
+
+// Empty grid container by removing all child node
+function emptyGridContainer() {
   let child = gridContainer.lastElementChild;
   while (child) {
     gridContainer.removeChild(child);
     child = gridContainer.lastElementChild;
   }
-  // Update css property to resize squares to fit container fully
+}
+
+// Update css property to resize squares to fit container fully
+function resizeGridTemplateColumns(columns) {
   gridContainerRule.style.setProperty(
     "grid-template-columns",
-    `repeat(${parsedUserSizeInput}, auto)`
+    `repeat(${columns}, auto)`
   );
-  createGrid(convertedUserSize);
 }
 
 // Add event listener to grid items
@@ -70,7 +82,7 @@ function removeMouseOverEvent(currentEvent) {
   }
 }
 
-// Event target style functions
+// Style Functions
 
 function makeGridItemBgBlack(evt) {
   evt.target.style.backgroundColor = "hsl(0, 0%, 0%)";
@@ -82,8 +94,7 @@ function makeGridItemBgRandom(evt) {
   )},${randomIntegerGenerator(256)},${randomIntegerGenerator(256)})`;
 }
 
-// Every time event is invoked make brightness
-
+// Reduce element brightness by 10% each time event is triggered (Min 0)
 function makeGridItemBgDarken(evt) {
   let brightnessLevelArray = evt.target.style.filter.match(numberRegex);
   let brightnessLevel = parseInt(brightnessLevelArray[0]);
@@ -91,9 +102,9 @@ function makeGridItemBgDarken(evt) {
   if (brightnessLevel > 0) {
     evt.target.style.filter = `brightness(${brightnessLevel - 10}%)`;
   }
-  console.log(brightnessLevel);
 }
 
+// Increase element brightness by 10% each time event is triggered (Max 100)
 function makeGridItemBgLighten(evt) {
   let brightnessLevelArray = evt.target.style.filter.match(numberRegex);
   let brightnessLevel = parseInt(brightnessLevelArray[0]);
@@ -101,7 +112,11 @@ function makeGridItemBgLighten(evt) {
   if (brightnessLevel < 100) {
     evt.target.style.filter = `brightness(${brightnessLevel + 10}%)`;
   }
-  console.log(brightnessLevel);
+}
+
+function erase(evt) {
+  evt.target.style.backgroundColor = "hsl(0, 0%, 100%)";
+  evt.target.style.filter = "brightness(100%)";
 }
 
 // HELPER FUNCTIONS
