@@ -34,7 +34,6 @@ h1 {
   justify-content: space-evenly;
   margin: 0 auto;
   max-width: 1000px;
-  /* Possible future styling */
   border-radius: 80px;
   background-color: rgb(252, 59, 59);
   padding: 5em;
@@ -59,8 +58,6 @@ button:hover{
   background-color: rgb(247, 247, 86);
   cursor: pointer;
 }
-
-/* https://www.joshwcomeau.com/animation/3d-button/ */
 
 .grid-container {
   display: grid;
