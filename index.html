@@ -11,29 +11,38 @@
     <div class="top-btn-container">
       <button id="btn-custom-size" onclick="customSize()">Custom Size</button>
     </div>
-
-    <div class="side-btn-container">
-      <button id="btn-black" onclick="addMouseOverEvent(makeGridItemBgBlack)">
-        Black
-      </button>
-      <button
-        id="btn-random-color"
-        onclick="addMouseOverEvent(makeGridItemBgRandom)"
-      >
-        Randomize
-      </button>
-      <button id="btn-darken" onclick="addMouseOverEvent(makeGridItemBgDarken)">
-        Darken
-      </button>
-      <button
-        id="btn-lighten"
-        onclick="addMouseOverEvent(makeGridItemBgLighten)"
-      >
-        Lighten
-      </button>
-      <button id="btn-clear" onclick="addMouseOverEvent(erase)">Erase</button>
-      <button id="btn-clear" onclick="createGrid(userSize)">Clear</button>
+    <div class="container">
+      <div class="side-style-btn-container">
+        <button id="btn-black" onclick="addMouseOverEvent(makeGridItemBgBlack)">
+          Black
+        </button>
+        <button
+          id="btn-random-color"
+          onclick="addMouseOverEvent(makeGridItemBgRandom)"
+        >
+          Randomize
+        </button>
+        <button
+          id="btn-darken"
+          onclick="addMouseOverEvent(makeGridItemBgDarken)"
+        >
+          Darken
+        </button>
+        <button
+          id="btn-lighten"
+          onclick="addMouseOverEvent(makeGridItemBgLighten)"
+        >
+          Lighten
+        </button>
+        <div class="side-edit-btn-container">
+          <button id="btn-clear" onclick="addMouseOverEvent(erase)">
+            Erase
+          </button>
+          <button id="btn-clear" onclick="createGrid(userSize)">Clear</button>
+        </div>
+      </div>
+      <div class="grid-container"></div>
+      <div class="space-evenly-div"></div>
     </div>
-    <div class="grid-container"></div>
   </body>
 </html>

@@ -2,6 +2,17 @@ const gridContainer = document.querySelector(".grid-container");
 const gridSize = 16 * 16;
 let userSize = gridSize;
 
+const buttonAudio = new Audio("./buttonClick.wav");
+const buttons = document.querySelectorAll("button");
+buttonAudio.volume = 0.3;
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    buttonAudio.load();
+    buttonAudio.play();
+  });
+});
+
 // API to select and change css properties.
 const stylesheet = document.styleSheets[0];
 const gridContainerRule = [...stylesheet.cssRules].find(
